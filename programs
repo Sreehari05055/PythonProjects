@@ -14,134 +14,147 @@ while True:
         continue
     else:
         while True:
-            X = input("What is your compulsory monthly expenses:")
+            question = input("What is your compulsory monthly expenses:")
             try:
-                X = float(X)
+                question = float(question)
             except:
                 print("Please use numeric digits !")
                 continue
-            if X <= 0:
+            if question <= 0:
                 print("Please enter a positive amount! ")
-            elif X >= num1:
+            elif question >= num1:
                 print("This is practically impossible")
                 continue
             else:
                 break
-        while True:
-            Y = input("What would be an approximate of non-compulsory expenses in a month:")
+    while True:
+            question_1 = input("What would be an approximate of non-compulsory expenses in a month:")
             try:
-                Y = float(Y)
+                question_1 = float(question_1)
             except:
                 print("Please use numeric digits! ")
                 continue
-            if Y <= 0:
-                print("Please enter a positive amount!")
+            if question_1 <= 0:
+                    print("Please enter a positive amount!")
+                    continue
+            else:
+                remaining_Money = num1 - question - question_1
+                if remaining_Money <= 0:
+                    print("Please try again")
+                    continue
+                break
+    while True:    
+            question_2 = input("Do you want to buy/own any possessions in the near future(Yes/No): ").lower()
+            if len(question_2) == 0:
                 continue
-            else:
+            elif question_2 != "yes" and question_2 != "no":
+                continue
+            elif question_2 == "no":
+                print("Thank you for your time! ")
                 break
-    Remaining_Money = num1 - X - Y
-    if Remaining_Money <= 0:
-        print("Please try again")
-    else:
-        Z = input("Do you want to buy/own any possessions in the near future(Yes/No): ").lower()
-        X1 = input("Have you taken a Loan from a bank to buy the possesion and still found it insuffient? (Yes/No): ").lower()
-        if Z == "yes" and X1 == "no":
-            while True:
-                Y2 = input("How much would the possession cost: ")
-                try:
-                    Y2 = float(Y2)
-                except:
-                    print("Please enter numeric digits! ")
-                    continue
-                if Y2 <= 0:
-                    print("Please enter a positive number! ")   
-                    continue
-                else:
-                    S = input("How much are you willing to save every month: ")
-                    try:
-                        S = float(S)
-                    except:
-                        print("Please enter numeric digits! ")
+            else:
+                
+                while True:            
+                    question_3 = input("Have you taken a Loan from a bank to buy the possesion and still found it insuffient? (Yes/No): ").lower()
+                    if len(question_3) == 0:
                         continue
-                    if S > Remaining_Money:
-                        print("Invalid amount stated")
+                    elif question_3 != "yes" and question_3 != "no":
                         continue
-                    elif S <= 0:
-                        print("Please enter a positive number! ")
                     else:
-                        A = Y2 // S
-                        B =  A //  12
-                        print("It would take " + str(B)+" years or "+ str(A) +" months if you were to make the purchase.")
-                        if Y2 % S != 0:
-                            detail = input("Do you want to know the exact time it would take?(Yes/No) ").lower()
-                            if detail == "yes":
-                                l = Y2 / S 
-                                m = A / S
-                                print("It would take exactly " + str(l) +" months if you intended to make the purchase.")
-                                break
+                            if question_2 == "yes" and question_3 == "no":
+                                while True:
+                                    question_4 = input("How much would the possession cost: ")
+                                    try:
+                                        question_4 = float(question_4)
+                                    except:
+                                        print("Please enter numeric digits! ")
+                                        continue
+                                    if question_4 <= 0:
+                                        print("Please enter a positive number! ")   
+                                        continue
+                                    else:
+                                        question_5 = input("How much are you willing to save every month: ")
+                                        try:
+                                            question_5 = float(question_5)
+                                        except:
+                                            print("Please enter numeric digits! ")
+                                            continue
+                                        if question_5 > remaining_Money:
+                                            print("Invalid amount stated")
+                                            continue
+                                        elif question_5 <= 0:
+                                            print("Please enter a positive number! ")
+                                        else:
+                                            division = question_4 // question_5
+                                            converting_months =  division //  12
+                                            print("It would take " + str(converting_months)+" years or "+ str(division) +" months if you were to make the purchase.")
+                                            if question_4 % question_5 != 0:
+                                                detail = input("Do you want to know the exact time it would take?(Yes/No) ").lower()
+                                                if detail == "yes":
+                                                    division_again = question_4 / question_5 
+                                                    print("It would take exactly " + str(division_again) +" months if you intended to make the purchase.")
+                                                    break
+                                                else:
+                                                    print("Thank you for your time.")
+                                                    break
+                                            else:
+                                                break
+                            elif question_2 == "yes" and question_3 == "yes":
+                                while True:
+                                    cost = input("How much would the possession cost: ")
+                                    try:
+                                        cost = float(cost)
+                                    except:
+                                        print("Please enter numeric digits! ")
+                                        continue
+                                    if cost <= 0:
+                                        print("Please enter a positive number! ")   
+                                        continue
+                                    else:
+                                        def jack(loan_amount,loan_interest,loan_Term):
+                                            to_months = loan_Term * 12
+                                            monthly_interest = ((loan_interest)/100)/12
+                                            loan_payment = (monthly_interest*loan_amount*((1+monthly_interest)**to_months))/(((1+monthly_interest)**to_months)-1)
+                                            return loan_payment
+                                    loan_interest = float(input("Enter the annual interest rate:"))
+                                    loan_Term = int(input("Enter the term period in years:"))
+                                    loan_amount = float(input("Enter the amount withdrawn from the bank:"))
+                                    if loan_amount >= cost:
+                                        print("You could already buy the possession")
+                                        do_you = input("Do you still want to calculate your loan repayment value?(Yes/No) ").lower()
+                                        if do_you == "yes":
+                                            readable = float(format(jack(loan_amount,loan_interest,loan_Term)))
+                                            print("You would have to pay about £" + str(round(readable)) + " every month for " + str(loan_Term) + " years to clear the loan")
+                                        else:
+                                            print("Thank you for your time! ")
+                                    else:
+                                        readable = float(format(jack(loan_amount,loan_interest,loan_Term)))
+                                        print("You would have to pay about £" + str(round(readable)) + " every month to clear the loan")
+                                        question_6 = input("Are you willing to save apart from the loan(Yes/No):").lower()
+                                        if question_6 == "yes":
+                                            while True:
+                                                question_7 = input("How much are you willing to save every month:")
+                                                remaining_2 = num1 - question - question_1 - readable
+                                                try:
+                                                    question_7 = float(question_7)
+                                                except:
+                                                    print("Please enter numeric digits! ")
+                                                    continue            
+                                                if question_7 > remaining_2:
+                                                    print("Invalid amount stated")
+                                                    continue
+                                                elif question_7 <= 0:
+                                                    print("Please enter a positive number! ")
+                                                    continue
+                                                else: 
+                                                    remaining = cost - loan_amount
+                                                    amount = remaining / question_7
+                                                    yearly_amount = amount / 12
+                                                    print("If you were to save money and use the entire withdrawn money it would take " + str(amount) + " months / "+ str(round(yearly_amount)) +" years to make the purchase.")
+                                                break
+                                        else:
+                                            print("Thank you for your time! ")
                             else:
-                                print("Thank you for your time.")
-                                break
-                        else:
-                            break
-        elif Z == "yes" and X1 == "yes":
-            while True:
-                P = input("How much would the possession cost: ")
-                try:
-                    P = float(P)
-                except:
-                    print("Please enter numeric digits! ")
-                    continue
-                if P <= 0:
-                    print("Please enter a positive number! ")   
-                    continue
-                else:
-                    def jack(Loan_amount,Loan_interest,Loan_Term):
-                        x = Loan_Term * 12
-                        y = ((Loan_interest)/100)/12
-                        Loan_payment = (y*Loan_amount*((1+y)**x))/(((1+y)**x)-1)
-                        return Loan_payment
-                Loan_interest = float(input("Enter the annual interest rate:"))
-                Loan_Term = int(input("Enter the term period in years:"))
-                Loan_amount = float(input("Enter the amount withdrawn from the bank:"))
-                if Loan_amount >= P:
-                    print("You could already buy the possession")
-                    do_you = input("Do you still want to calculate your loan repayment value?(Yes/No) ").lower()
-                    if do_you == "yes":
-                        a = float(format(jack(Loan_amount,Loan_interest,Loan_Term)))
-                        print("You would have to pay about £" + str(round(a)) + " every month for " + str(Loan_Term) + " years to clear the loan")
-                    else:
-                        print("Thank you for your time! ")
-                else:
-                    a = float(format(jack(Loan_amount,Loan_interest,Loan_Term)))
-                    print("You would have to pay about £" + str(round(a)) + " every month to clear the loan")
-                    O = input("Are you willing to save apart from the loan(Yes/No):").lower()
-                    if O == "yes":
-                        while True:
-                            u = input("How much are you willing to save every month:")
-                            remaining_2 = num1 - X - Y - a
-                            try:
-                                u = float(u)
-                            except:
-                                print("Please enter numeric digits! ")
-                                continue            
-                            if u > remaining_2:
-                                print("Invalid amount stated")
-                                continue
-                            elif u <= 0:
-                                print("Please enter a positive number! ")
-                                continue
-                            else: 
-                                b = P - Loan_amount
-                                c = b / u
-                                v = c / 12
-                                print("If you were to save money and use the entire withdrawn money it would take " + str(c) + " months / "+ str(round(v)) +" years to make the purchase.")
-                            break
-                    else:
-                        print("Thank you for your time! ")
-                break
-        else:
-            if Z != "no" and X1 != "no":
-                print("Please enter(Yes/No). Try again")
-            else:
-                print("Thank you for your time! ")            
+                                print("Thank you for your time! ")    
+    break
+                        
