@@ -4,17 +4,6 @@ if __name__ == '__main__':
     print("Welcome To the SA's finance calculator")
     print("======================================")
     def expenses():
-        def read_yes_or_no(prompt):
-            while True:
-                answer = input(prompt + ': ').lower()
-                if answer in ['yes', 'no']:
-                    return answer
-                elif answer != "yes" and answer != "no":
-                    print("Please enter(Yes/No)")
-                else:
-                    if answer == "no":
-                        print("Thank you for your time! ")
-                        return
         def read_positive_int(prompt):
             while True:
                 num = input(prompt + ': ')
@@ -59,7 +48,15 @@ if __name__ == '__main__':
                             print("Please try again")
                             continue
                         break
-        question_2 = read_yes_or_no("Do you want to buy/own any possessions in the near future(Yes/No)")
+        while True:
+            question_2 = input("Do you want to buy/own any possessions in the near future(Yes/No): ").lower()
+            if question_2 != "yes" and question_2 != "no":
+                print("Please enter(Yes/No)")
+            else:
+                if question_2 == "no":
+                    print("Thank you for your time! ")
+                    return
+                break
         while True:            
             question_3 = input("Have you taken a Loan from a bank to buy the possesion and still found it insuffient? (Yes/No): ").lower()
             if question_3 != "yes" and question_3 != "no":
@@ -126,6 +123,3 @@ if __name__ == '__main__':
                         print("Please enter(Yes/No)")
                         continue
     expenses()
-                                            
-                            
-                                            
