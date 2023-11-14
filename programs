@@ -1,5 +1,3 @@
-import math
-import sys
 if __name__ == '__main__':
     print("Welcome To the SA's finance calculator")
     print("======================================")
@@ -19,35 +17,17 @@ if __name__ == '__main__':
                     return num
         num1 = read_positive_int("Please input your Monthly income after taxes")
         while True:
-                    question = input("What is your compulsory monthly expenses:")
-                    try:
-                        question = float(question)
-                    except:
-                        print("Please use numeric digits !")
-                        continue
-                    if question <= 0:
-                        print("Please enter a positive amount! ")
-                    elif question >= num1:
-                        print("Please try again")
-                        continue
-                    else:
-                        break
-        while True:
-                    question_1 = input("What would be an approximate of non-compulsory expenses in a month:")
-                    try:
-                        question_1 = float(question_1)
-                    except:
-                        print("Please use numeric digits! ")
-                        continue
-                    if question_1 <= 0:
-                            print("Please enter a positive amount!")
-                            continue
-                    else:
-                        remaining_Money = num1 - question - question_1
-                        if remaining_Money <= 0:
-                            print("Please try again")
-                            continue
-                        break
+            question = read_positive_int("What is your compulsory monthly expenses")
+            question_1 = read_positive_int("What would be an approximate of non-compulsory expenses in a month ")
+            if question >= num1:
+                print("Please try again")
+                continue
+            else:
+                remaining_Money = num1 - question - question_1
+                if remaining_Money <= 0:
+                    print("Please try again")
+                    continue
+                break
         while True:
             question_2 = input("Do you want to buy/own any possessions in the near future(Yes/No): ").lower()
             if question_2 != "yes" and question_2 != "no":
@@ -64,6 +44,7 @@ if __name__ == '__main__':
                 continue
             else:
                 if question_2 == "yes" and question_3 == "no":
+                    print('You would have a remaining amount of about £'+ str(round(remaining_Money,1)) +' every month')
                     question_4 = read_positive_int("How much would the possession cost")
                     question_5 = read_positive_int("How much are you willing to save every month")
                     if question_5 > remaining_Money:
@@ -102,11 +83,12 @@ if __name__ == '__main__':
         else:
             readable = float(format(jack(loan_amount,loan_interest,loan_term)))
             print("You would have to pay about £" + str(round(readable,1)) + " every month to clear the loan") 
+            remaining_2 = num1 - question - question_1 - readable
+            print('You would have a remaining amount of about £'+ str(round(remaining_2,1)) +' every month')
             while True:
                 question_6 = input("Are you willing to save apart from the loan(Yes/No):").lower()
                 if question_6 == "yes":
                     question_7 = read_positive_int("How much are you willing to save every month")
-                    remaining_2 = num1 - question - question_1 - readable
                     if question_7 > remaining_2:
                         print("Invalid amount stated")
                         continue
