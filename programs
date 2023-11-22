@@ -1,7 +1,8 @@
 if __name__ == '__main__':
-    print("Welcome To the SA's finance calculator")
-    print("======================================")
-    def expenses():
+    pass
+print("Welcome To the SA's finance calculator")
+print("======================================")
+def expenses():
         def read_positive_int(prompt):
             while True:
                 num = input(prompt + ': ')
@@ -24,7 +25,7 @@ if __name__ == '__main__':
                 continue
             else:
                 remaining_Money = num1 - question - question_1
-                if remaining_Money <= 0:
+                if remaining_Money < 0:
                     print("Please try again")
                     continue
                 break
@@ -39,12 +40,12 @@ if __name__ == '__main__':
                 break
         while True:            
             question_3 = input("Have you taken a Loan from a bank to buy the possesion and still found it insuffient? (Yes/No): ").lower()
+            print('You would have a remaining amount of about £'+ str(round(remaining_Money,1)) +' every month')
             if question_3 != "yes" and question_3 != "no":
                 print("Please enter(Yes/No)")
                 continue
             else:
                 if question_2 == "yes" and question_3 == "no":
-                    print('You would have a remaining amount of about £'+ str(round(remaining_Money,1)) +' every month')
                     question_4 = read_positive_int("How much would the possession cost")
                     question_5 = read_positive_int("How much are you willing to save every month")
                     if question_5 > remaining_Money:
@@ -104,4 +105,4 @@ if __name__ == '__main__':
                     else:
                         print("Please enter(Yes/No)")
                         continue
-    expenses()
+expenses()
