@@ -1,12 +1,11 @@
 default_file = 'saving_ps.txt'
-
 dict = {}
 def read_stuff():
     with open(default_file,'r') as f:
         for line in f:
-            username, password = line.strip().split(' ')
-            dict[username] = password
-        return dict
+            username, password, name = line.strip().split(':')
+            dict[username, password] = username, username
+    return dict
 def login(passwd):
     values_present = read_stuff()
     return values_present[passwd]
