@@ -5,11 +5,8 @@ import codecs
 if __name__ == '__main__':
     values_present = read_stuff()
     usr = input('Enter username: ')
-    if usr in dict.keys():
-        passwd = codecs.encode(getpass.getpass('Enter password: '), 'rot_13')
-        if passwd == dict[usr]:
-                print('Access Granted')
-        else:
-            print('Username or password incorrect')
+    passwd = codecs.encode(getpass.getpass('Enter password: '), 'rot_13')
+    if (usr,passwd) in dict.keys():
+        print('Access Granted')
     else:
         print('Username or password incorrect')
