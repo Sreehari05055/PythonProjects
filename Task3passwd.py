@@ -8,22 +8,16 @@ if __name__ == '__main__':
     usr = input('Enter username: ')
     passwd = codecs.encode(getpass.getpass('Enter current password: '), 'rot_13')
     if (usr,passwd) in dict.keys():
-           name = dict[usr,passwd]
-           del dict[usr,passwd]
-           pswrd = codecs.encode(getpass.getpass('Enter new password: '), 'rot_13')
-           again = codecs.encode(getpass.getpass('re-enter password: '), 'rot_13')
-           if pswrd == again:
+            name = dict[usr,passwd]
+            pswrd = codecs.encode(getpass.getpass('Enter new password: '), 'rot_13')
+            again = codecs.encode(getpass.getpass('re-enter password: '), 'rot_13')
+            if pswrd == again:
                 with open('saving_ps.txt', 'r') as f:
-                    for line in f:
-                        usr_2, pswd, name1 = line.strip().split(':')
-                        dict[usr_2, pswd] = name1
+                    file = f.read()
                     f.close()
-                with open('saving_ps.txt', 'a') as w:
-                    w.write('\n')
-                    w.write(usr)
-                    w.write(':')
-                    w.write(pswrd)
-                    w.write(':')
-                    w.write(name)
+                    new_file = file.replace((usr+':'+passwd+':'+name),(usr+':'+pswrd+':'+name))
+                    with open('saving_ps.txt', 'w') as f:
+                         f.write(new_file)
+                         f.close()
     else:
         print('Access denied')
