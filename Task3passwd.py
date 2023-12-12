@@ -3,7 +3,6 @@ import getpass
 from Task3 import read_stuff
 from Task3 import dict
 if __name__ == '__main__':
-    dict_3 = {}
     values_present = read_stuff()
     usr = input('Enter username: ')
     passwd = codecs.encode(getpass.getpass('Enter current password: '), 'rot_13')
@@ -19,5 +18,7 @@ if __name__ == '__main__':
                     with open('saving_ps.txt', 'w') as f:
                          f.write(new_file)
                          f.close()
+            else:
+                 print('passwords do not match')
     else:
         print('Access denied')

@@ -9,7 +9,5 @@ def read_stuff():
 def login(passwd):
     values_present = read_stuff()
     return values_present[passwd]
-
-
 if __name__ == '__main__':
     print(read_stuff())

@@ -3,10 +3,12 @@ from Task3 import dict
 import getpass
 import codecs
 if __name__ == '__main__':
-    values_present = read_stuff()
-    usr = input('Enter username: ')
-    passwd = codecs.encode(getpass.getpass('Enter password: '), 'rot_13')
-    if (usr,passwd) in dict.keys():
-        print('Access Granted')
-    else:
-        print('Username or password incorrect')
+    def login():
+        values_present = read_stuff()
+        usr = input('Enter username: ')
+        passwd = codecs.encode(getpass.getpass('Enter password: '), 'rot_13')
+        if (usr,passwd) in dict.keys():
+            print('Access Granted')
+        else:
+            print('Access denied')
+    login()
