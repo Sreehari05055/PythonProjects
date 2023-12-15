@@ -4,6 +4,8 @@ from statistics import mean
 def ours_and_theirs():
     with open(file_name, 'r') as f:
         for line in f:
+            if line == 'END':
+                break
             a, b, c = line.strip().split(',')
             difference = int(c)-int(b)
             status = a, difference
@@ -27,15 +29,6 @@ if __name__ == '__main__':
         try:
             list_1 = []
             list_2 = []
-
-            with open(file_name, 'r') as f:
-                file = f.read()
-                f.close()
-
-            mods = file.replace(('END'),(''))
-            with open(file_name, 'w') as f:
-                f.write(mods)
-                f.close()
 
             ours_and_theirs()
 
