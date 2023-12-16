@@ -3,6 +3,8 @@ dict = {}
 def read_stuff():
     with open(default_file,'r') as f:
         for line in f:
+            if len(line.split()) == 0:
+                continue
             username, password, name  = line.strip().split(':')
             dict[username,password] =  name
     return dict
