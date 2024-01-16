@@ -22,6 +22,7 @@ def equal():
     except SyntaxError:
         equation.set("Error")
         getting = ""
+        
 if __name__ == '__main__':
     root = Tk()
     title_1= root.title('KP Calculator')
