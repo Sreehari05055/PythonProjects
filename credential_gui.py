@@ -1,5 +1,6 @@
 from Tsk3 import read_stuff
 from Tsk3 import dict
+import random
 import codecs
 from tkinter import *
 from email.message import EmailMessage
@@ -25,6 +26,10 @@ def submit_login():
         window.destroy()
         return
 def forgot_pssword():
+    global rand_num,usrname,mail
+    rand_num = ""
+    for i in range(6):
+        rand_num += str(random.randint(0,9))
     dict_3 = {}
     usrname = str(usr2_entry.get()).strip()
     mail = str(email_entry.get()).strip()
@@ -40,27 +45,51 @@ def forgot_pssword():
         reciever = str(email_entry.get()).strip()
         email_reciever = reciever
         subject = 'Reset your password'
-        body = """None"""
-
         email = EmailMessage()
         email['From'] = email_sender
         email['to'] = email_reciever
         email['Subject'] = subject
-        email.set_content(body)
+        email.set_content("Your OTP is: "+ rand_num)
 
         context = ssl.create_default_context()
 
         with smtplib.SMTP_SSL('smtp.gmail.com',465, context=context) as smtp:
             smtp.login(email_sender,email_password)
             smtp.sendmail(email_sender, email_reciever, email.as_string())
-        change_psswd()
+        window_44.destroy()
+        recognition()
     else:
+        window_44.destroy()
         win = Toplevel()
         win.geometry('850x500')
         access = Label(win,text='Access Denied')
         access.config(font = ('Arial', 20))
         access.place(x=200,y=200)
         window_44.destroy()
+    return
+def recognition():
+    global window_58
+    window_58 = Toplevel()
+    window_58.geometry('850x500')
+    new_pass58 = Label(window_58,text='Enter the code: ')
+    new_pass58.config(font = ('Arial', 20))
+    new_pass58.place(x=200,y=200)
+    global newpas_entry58
+    newpas_entry58 = Entry(window_58, width=20, borderwidth=3,)
+    newpas_entry58.place(x=350, y=200)
+    subission_5 = Button(window_58, text='Submit', command=codemit).place(x=350,y=260)
+def codemit(): 
+    new_pas_get = str(newpas_entry58.get()).strip()
+    if new_pas_get == str(rand_num):
+        window_58.destroy()
+        change_psswd()
+    else:
+        window_58.destroy()
+        window_59 = Toplevel()
+        window_59.geometry('850x500')
+        new_pass59 = Label(window_59,text='INCORRECT CODE ')
+        new_pass59.config(font = ('Arial', 30))
+        new_pass59.place(x=300,y=200)
     return
 def change_psswd():
     global window_55
@@ -81,7 +110,6 @@ def change_psswd():
     subission = Button(window_55, text='Submit', command=passwd_submit).place(x=390,y=260)
     return
 def passwd_submit():
-    usrname = str(usr2_entry.get()).strip()
     changing_passwd = str(newpas_entry.get()).strip()
     chaning_passwd_again = str(repasswd_entry.get()).strip()
     if changing_passwd == chaning_passwd_again:
@@ -104,7 +132,6 @@ def passwd_submit():
                                 new_pass = Label(win_1,text='Access Granted')
                                 new_pass.config(font = ('Arial', 20))
                                 new_pass.place(x=200,y=200)
-                                window_44.destroy()
                                 window_55.destroy()
                         else:
                             continue
@@ -114,27 +141,7 @@ def passwd_submit():
             new_pass = Label(win_2,text='Passwords do not match')
             new_pass.config(font = ('Arial', 20))
             new_pass.place(x=200,y=200)
-            window_44.destroy()
             window_55.destroy()
-def submit_login1(Event):
-        read_stuff()
-        usr_1 =  str(usrname_entry.get()).strip()
-        passwd_1 = str(passwd_entry.get()).strip()
-        passwd_11 = codecs.encode(passwd_1, 'rot_13') 
-        if (usr_1,passwd_11) in dict.keys():
-            window_2 = Toplevel()
-            window_2.geometry('850x500')
-            Access = Label(window_2,text='Access Granted ')
-            Access.config(font = ('Arial', 20))
-            Access.place(x=300,y=200)
-        else:
-            window_3 = Toplevel()
-            window_3.geometry('850x500')
-            Access_1 = Label(window_3,text='Access Denied ')
-            Access_1.config(font = ('Arial', 20))
-            Access_1.place(x=300,y=200)
-        window.destroy()
-        return
 def submit_signup():
         dict_1 = {}
         eml = str(emaail_entry.get()).strip()
@@ -172,43 +179,7 @@ def submit_signup():
                 Access_3.place(x=300,y=200)
         window_1.destroy()
         return
-def submit_signup1(event):
-        dict_2 = {}
-        eml1 = str(emaail_entry.get()).strip()
-        name_2 = str(name_entry.get()).strip()
-        passwd_2 = str(passwd1_entry.get()).strip()
-        passwd_12 = codecs.encode(passwd_2, 'rot_13') 
-        usr_2 =  str(usrname1_entry.get()).strip()
-        with open('saving_ps.txt', 'r') as f:
-            for line in f:
-                if len(line.split()) == 0:
-                    continue
-                usr, pswd, name1, gmail_1 = line.strip().split(':')
-                dict_2[usr] = pswd, name1, gmail_1
-            if (usr_2) in dict_2.keys():
-                window_5 = Toplevel()
-                window_5.geometry('850x500')
-                Access_4 = Label(window_5,text='Username already exists')
-                Access_4.config(font = ('Arial', 20))
-                Access_4.place(x=300,y=200)
-            else:
-                with open('saving_ps.txt', 'a') as w:
-                    w.write('\n')
-                    w.write(usr_2)
-                    w.write(':')
-                    w.write(passwd_12)
-                    w.write(':')
-                    w.write(name_2)
-                    w.write(':')
-                    w.write(eml1)
-                    w.close()
-                window_4 = Toplevel()
-                window_4.geometry('850x500')
-                Access_3 = Label(window_4,text='You have successfully created an account')
-                Access_3.config(font = ('Arial', 20))
-                Access_3.place(x=300,y=200)
-        window_1.destroy()
-        return
+
 def login():
     global window
     window = Toplevel()
@@ -226,7 +197,6 @@ def login():
     passwd_entry = Entry(window, show='*', width=20, borderwidth=3,)
     passwd_entry.place(x=400, y=230)
     subission = Button(window, text='Submit', command=submit_login).place(x=390,y=260)
-    window.bind('<Return>', submit_login1)
     forgot_pswrd = Button(window,text='forgot password',command=forgot_password).place(x=390,y=290)
     return
 def signup():
@@ -258,7 +228,6 @@ def signup():
     usrname1_entry = Entry(window_1, width=20, borderwidth=3,)
     usrname1_entry.place(x=400, y=260)
     subission_1 = Button(window_1, text='Submit', command=submit_signup).place(x=390,y=290)
-    window_1.bind('<Return>', submit_signup1)
     return
 def forgot_password():
     global window_44
