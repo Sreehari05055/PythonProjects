@@ -1,1 +1,1 @@
-# hello
+# 1) Credential_gui.py :  a GUI that handles users logging/signing in made using Python, provided their usernames, names and passwords would be stored in saving_ps.txt, the program would also require Tsk3.py to function
