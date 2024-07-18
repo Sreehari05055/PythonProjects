@@ -15,7 +15,7 @@ cursor = db.cursor()
 
 cursor.execute("""SELECT table_name 
 FROM information_schema.tables
-WHERE table_schema = "credentials"
+WHERE table_schema = "database"
 AND table_name = 'userdata';""")
 
 data = cursor.fetchone()
