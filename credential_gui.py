@@ -7,7 +7,7 @@ import getpass
 
 #The db connects to the database
 
-db = mysql.connector.connect(host="localhost", user="root", password="Bit4$ree@0505", database="credentials")
+db = mysql.connector.connect(host="localhost", user="enter user", password="enter password", database="enter db name")
 
 cursor = db.cursor()
 
