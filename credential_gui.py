@@ -8,7 +8,7 @@ import getpass
 try:
     #The db connects to the database
 
-    db = mysql.connector.connect(host="localhost", user="root", password="Bit4$ree@0505", database="credentials")
+    db = mysql.connector.connect(host="Your_server", user="root", password="your_password", database="credentials")
 
     cursor = db.cursor()
 
@@ -71,8 +71,8 @@ def forgot_pssword():
         cursor.execute(query3, (usrname, mail))
         result = cursor.fetchone()
         if result:
-            email_sender = 'sreekuttankzm@gmail.com'
-            email_password = 'zwqg nnjp xztt mamu'
+            email_sender = 'Your_email_address'
+            email_password = 'app_specific_password'
 
             email_reciever = mail
             subject = 'Reset your password'
